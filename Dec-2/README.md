@@ -10,3 +10,6 @@ worked on the first try.
 
 ## Part 2
 
+Part 2 changes things up, instead of down and up changing the depth, they only affect the aim(angle) of the submarine now. Forward
+changes the horizontal position and also now changes the depth based on the aim. Fun puzzle but I didnt need to use strtok which
+is a little sad. Hopefully I can flex my C in future challenges.
