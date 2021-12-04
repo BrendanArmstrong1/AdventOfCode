@@ -11,6 +11,8 @@ But then came part two...
 Part 2 had refactoring and weird indices along with multiple scans through the array. I didn't like this solution as I ended up
 retrieving the numbers through an iterative process and using a hand calculator to find the product. 
 
+Update: Ok so I Cleaned the code up so that it gives all of the answers. This is a legit 2 stars then
+
 Things I learned through this exercise:
 
 - When dealing with long numbers, like binary representation, it is easier to use strings rather than bit shifting. The number
