@@ -8,6 +8,7 @@ typedef struct Board {
   int matrix[5][5];
   int col[5];
   int row[5];
+  int found;
 } Board;
 
 void PrintBoardInfo(Board *board, char *calledNumber);
@@ -29,6 +30,7 @@ int main(int argc, char **argv) {
     memset(bd[i].matrix, 0, 25 * sizeof(int));
     memset(bd[i].col, 0, 5 * sizeof(int));
     memset(bd[i].row, 0, 5 * sizeof(int));
+    bd[i].found = 0;
   }
 
   fgets(calledNumbersList, 1000, fd);
@@ -88,13 +90,15 @@ void FindBoardMatches(int numOfBoards, Board *bd, char *calledNumber) {
 Board *CheckForCompletion(int numOfBoards, Board *bd) {
   static int found = 0;
   for (int i = 0; i < numOfBoards; ++i) {
-    if (!found) {
-      for (int j = 0; j < 5; ++j) {
-        for (int k = 0; k < 5; ++k) {
-          if (bd[i].matrix[j][k]) {
-            if (bd[i].row[j] == 5 || bd[i].col[k] == 5) {
-              printf("Found! ");
-              found = 1;
+    for (int j = 0; j < 5; ++j) {
+      for (int k = 0; k < 5; ++k) {
+        if (bd[i].matrix[j][k]) {
+          if (bd[i].row[j] == 5 || bd[i].col[k] == 5) {
+            if (bd[i].found == 0) {
+              bd[i].found = 1;
+              found += 1;
+            }
+            if (found == 99) {
               return &bd[i];
             }
           }

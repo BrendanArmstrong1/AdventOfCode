@@ -1,5 +1,7 @@
 *
 !*/
-!/Dec*/*.c
-!/Dec*/*.txt
+!/**/*.c
+!/**/*.txt
+!/**/README.md
+!.gitignore
 
