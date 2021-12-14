@@ -3,42 +3,9 @@
 #include <math.h>
 #include <string.h>
 
-void swap(unsigned long* xp, unsigned long* yp)
-{
-    unsigned long temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
-// Function to perform Selection Sort
-void selectionSort(unsigned long arr[], int n)
-{
-    int i, j, min_idx;
-
-    // One by one move boundary of unsorted subarray
-    for (i = 0; i < n - 1; i++) {
-
-        // Find the minimum element in unsorted array
-        min_idx = i;
-        for (j = i + 1; j < n; j++)
-            if (arr[j] < arr[min_idx])
-                min_idx = j;
-
-        // Swap the found minimum element
-        // with the first element
-        swap(&arr[min_idx], &arr[i]);
-    }
-}
-
-// Function to print an array
-void printArray(unsigned long arr[], int size)
-{
-    int i;
-    for (i = 0; i < size; i++){
-      if(i == 22){
-        printf("%lu, %d\n", arr[i], i);
-      }
-    }
-}
+void swap(unsigned long* xp, unsigned long* yp);
+void selectionSort(unsigned long arr[], int n);
+void printArray(unsigned long arr[], int size);
 
 int main(int argc, char **argv)
 {
@@ -100,5 +67,31 @@ int main(int argc, char **argv)
   return 0;
 }
 
+void swap(unsigned long* xp, unsigned long* yp)
+{
+  unsigned long temp = *xp;
+  *xp = *yp;
+  *yp = temp;
+}
 
+void selectionSort(unsigned long arr[], int n)
+{
+  int i, j, min_idx;
+  for (i = 0; i < n - 1; i++) {
+    min_idx = i;
+    for (j = i + 1; j < n; j++)
+      if (arr[j] < arr[min_idx])
+          min_idx = j;
+    swap(&arr[min_idx], &arr[i]);
+  }
+}
 
+void printArray(unsigned long arr[], int size)
+{
+  int i;
+  for (i = 0; i < size; i++){
+    if(i == 22){
+      printf("%lu, %d\n", arr[i], i);
+    }
+  }
+}
