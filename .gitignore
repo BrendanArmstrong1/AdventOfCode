@@ -1,7 +1,0 @@
-*
-!*/
-!/**/*.c
-!/**/*.rs
-!/**/README.md
-!.gitignore
-
