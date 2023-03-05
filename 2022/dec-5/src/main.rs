@@ -23,15 +23,23 @@ fn part1(f: fs::File) {
     }
     let instructions: Vec<String> = lines.collect();
 
-    let mut crates_iter = crates.into_iter().rev();
-    let mut stacks: Vec<String> = vec![String::new(); 9];
+    let crates_iter = crates.iter().rev();
+    let stacks: Vec<String> = parse_stacks(crates_iter);
+    println!("{:?}", stacks);
+}
+
+fn parse_stacks<'a, T>(mut crates_iter: T) -> Vec<String>
+where
+    T: Iterator<Item = &'a String>,
+{
+    let mut ret_val = vec![String::new(); 9];
 
     let indexes = crates_iter
         .next()
         .unwrap()
         .chars()
         .enumerate()
-        .filter(|(x, v)| v.to_string().ne(" "))
+        .filter(|(_x, v)| v.to_string().ne(" "))
         .map(|(x, v)| (x, v.to_string().parse::<usize>().unwrap()))
         .collect::<Vec<(usize, usize)>>();
     println!("{:?}", indexes);
@@ -43,9 +51,9 @@ fn part1(f: fs::File) {
                 continue;
             }
             print!("{}", l);
-            stacks[i.1 - 1].push(l);
+            ret_val[i.1 - 1].push(l);
         }
         println!("");
     }
-    println!("{:?}", stacks);
+    ret_val
 }
