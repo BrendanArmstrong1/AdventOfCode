@@ -6,71 +6,42 @@ fn main() {
   part1(file);
 }
 
-fn part1(f: File) {
-  let reader = BufReader::new(f);
-  let mut matrix: Vec<Vec<char>> = Vec::new();
-
-  matrix.push(Vec::new());
-  for line in reader.lines() {
-    let mut temp_vec: Vec<char> = Vec::new();
-    let new_line: Vec<char> = line.unwrap().chars().collect();
-    temp_vec.push('.');
-    temp_vec.extend(new_line);
-    temp_vec.push('.');
-    matrix.push(temp_vec);
+fn part1(_: File) {
+  let matrix: Vec<&str> = vec![
+    "467.$114..",
+    "...*......",
+    "..35..633.",
+    "......#...",
+    "617*......",
+    ".....+.58.",
+    "..592.....",
+    "......755.",
+    "...$.*....",
+    ".664.598.#",
+  ];
+  let mut char_vec: Vec<Vec<char>> = Vec::new();
+  for row in matrix {
+    char_vec.push(row.chars().collect());
   }
-  for _ in 0..matrix[2].len() {
-    matrix.get_mut(0).unwrap().push('.');
-  }
-  matrix.push(vec!['.'; matrix[1].len()]);
-  // now that the matrix is padded, I can find the
-  let mut part_number_record: Vec<Vec<char>> = Vec::new();
-  for y in 1..(matrix.len() - 2) {
-    let mut cols = matrix.get(y).unwrap().iter().enumerate();
+  let temp_row = vec!['.';10];
 
-    while let Some((l, value)) = cols.next() {
-      if matrix[y][l].is_numeric() {
-        let mut new_part: Vec<char> = Vec::new();
-        new_part.push(*value);
-        let mut r: usize = l;
-
-        while let Some((right, value)) = cols.next() {
-          if value.is_numeric() {
-            new_part.push(*value);
-          } else {
-            r = right;
-            break;
+  for (idy, row) in char_vec.iter().enumerate() {
+    for (idx, char) in row.iter().enumerate() {
+      if !char.is_numeric() && char != &'.' {
+        // flood fill
+        for y in idy..=idy + 2 {
+          for x in idx..=idx + 2 {
+            let value = char_vec
+              .get((y as isize -1) as usize)
+              .unwrap_or(&temp_row)
+              .get((x as isize -1) as usize)
+              .unwrap_or(&'.');
+            print!("{}", value);
           }
-        } // now I have the whole number, and the l and r side of it
-
-        for yy in (y - 1)..=(y + 1) {
-          for xx in l - 1..=r {
-            if !matrix[yy][xx].is_numeric() && matrix[yy][xx] != '.' {
-              new_part.push(matrix[yy][xx])
-            }
-          }
+          println!();
         }
-        part_number_record.push(new_part);
+        println!();
       }
     }
   }
-  let mut orphaned_parts: Vec<&Vec<char>> = Vec::new();
-  for part in part_number_record.iter() {
-    let mut symbol_found: bool = false;
-    for value in part.iter() {
-      if !value.is_ascii_digit() {
-        symbol_found = true;
-      }
-    }
-    if symbol_found {
-      orphaned_parts.push(part);
-    }
-  }
-
-  let mut  summation: i32 = 0;
-  for part in orphaned_parts.iter() {
-    let concatenated = part.iter().filter(|v| v.is_numeric()).map(|x| x.to_string()).collect::<Vec<_>>().join("");
-    summation += concatenated.parse().unwrap_or(0);
-  }
-  println!("{:?}", summation);
 }
