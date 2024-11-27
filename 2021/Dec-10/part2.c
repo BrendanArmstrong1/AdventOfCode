@@ -10,7 +10,7 @@ void printArray(unsigned long arr[], int size);
 int main(int argc, char **argv)
 {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-10/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-10/input.txt", "r");
   char buff[200];
   unsigned long points[45];
   int corrupted = 0;

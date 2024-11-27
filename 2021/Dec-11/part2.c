@@ -12,7 +12,7 @@ int flash(int matrix[ROWS][COLS], int *N_flashes);
 int main(int argc, char **argv)
 {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-11/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-11/input.txt", "r");
   char buff[200];
   int matrix[ROWS][COLS];
   int N_flashes = 0;

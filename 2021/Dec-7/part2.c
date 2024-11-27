@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv)
 {
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-7/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-7/input.txt", "r");
   char buff[5000];
   fgets(buff, 5000, fd);
   char *token = strtok(buff, ",");

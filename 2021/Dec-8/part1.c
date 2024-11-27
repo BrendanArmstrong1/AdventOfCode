@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv)
 {
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-8/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-8/input.txt", "r");
   int status;
   regex_t re;
   regmatch_t match[200];

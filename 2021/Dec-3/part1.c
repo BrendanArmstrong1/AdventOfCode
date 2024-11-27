@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv) {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-3/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-3/input.txt", "r");
   int count[12] = {};
   char buff[20];
   memset(buff, '0', 20);

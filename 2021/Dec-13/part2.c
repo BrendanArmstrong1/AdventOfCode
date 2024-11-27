@@ -10,7 +10,7 @@ void callfold(int coords[1000][2], int number, char Dir, int index);
 int main(int argc, char **argv)
 {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-13/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-13/input.txt", "r");
   char buff[200];
   int coords[1000][2] = {};
   char folds[20][200];

@@ -13,7 +13,7 @@ typedef struct Line{
 
 int main(int argc, char **argv)
 {
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-5/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-5/input.txt", "r");
   char buff[100];
   Line collection[500];
   char *token;

@@ -19,7 +19,7 @@ void stepTree(bintree tree[TREENUM], unsigned long charactercount[26], unsigned 
 int main(int argc, char **argv)
 {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-14/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-14/input.txt", "r");
   char buff[200];
   char start[200];
   char *token;

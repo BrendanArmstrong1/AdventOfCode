@@ -14,7 +14,7 @@ void pathFind(cave *, int *);
 int main(int argc, char **argv)
 {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-12/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-12/input.txt", "r");
   char buff[20];
   char *C1;
   char *C2;

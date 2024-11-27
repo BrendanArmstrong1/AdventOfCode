@@ -9,7 +9,7 @@ int ReturnMostCommon(char *startstr, char *retstr, int position, int length,
 
 int main(int argc, char **argv) {
 
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-3/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-3/input.txt", "r");
   char buff[14];
   char list[(SIZE + 1) * 1000];
   char answer[(SIZE + 1) * 1000];

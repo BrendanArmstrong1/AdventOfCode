@@ -7,7 +7,7 @@
 
 int main(int argc, char **argv)
 {
-  FILE *fd=fopen("/home/brendan/S/AoC/AoC-2021/Dec-6/input.txt", "r");
+  FILE *fd=fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-6/input.txt", "r");
   char *token;
   char buff[2000];
   fgets(buff,2000,fd);

@@ -8,7 +8,7 @@ void decrypy_time(char *, int *);
 
 int main(int argc, char **argv)
 {
-  FILE *fd = fopen("/home/brendan/S/AoC/AoC-2021/Dec-8/input.txt", "r");
+  FILE *fd = fopen("/home/brendan/ssd/AoC/AoC-2021/Dec-8/input.txt", "r");
   char buff[200];
   int total = 0;
 
