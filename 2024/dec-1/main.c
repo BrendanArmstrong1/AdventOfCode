@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define HASH_TABLE_SIZE 10007 // prime number
+
+typedef struct HashNode
+{
+  int              key;
+  int              count;
+  struct HashNode *next;
+} HashNode;
+
+typedef struct
+{
+  HashNode **buckets;
+  int        size;
+} HashTable;
+
 typedef struct Lists
 {
   int **list1;
@@ -13,13 +28,19 @@ lists generate_lists(char *content);
 void  sort_lists(lists *separate_lists);
 void  find_distance(lists *separate_lists);
 void  free_lists(lists *separate_lists);
+void  find_similarities(lists *separate_lists);
+
+unsigned int hash_function(int key);
+void         hash_insert(HashTable *table, int key);
+void         free_hash_table(HashTable *table);
 
 void part1(void);
 void part2(void);
 
 int main(void)
 {
-  part1();
+  /*part1();*/
+  part2();
   return 0;
 }
 
@@ -43,6 +64,31 @@ void part1(void)
   separate_lists = generate_lists(contents);
   sort_lists(&separate_lists);
   find_distance(&separate_lists);
+
+  free(contents);
+  free_lists(&separate_lists);
+  fclose(input);
+}
+
+void part2(void)
+{
+  FILE *input;
+  char *contents;
+  long  fsize;
+  lists separate_lists;
+
+  input = fopen("input.txt", "r");
+  if(!input) { exit(1); }
+
+  fseek(input, 0, SEEK_END);
+  fsize = ftell(input);
+  fseek(input, 0, SEEK_SET);
+
+  contents = malloc(fsize + 1);
+  fread(contents, fsize, 1, input);
+
+  separate_lists = generate_lists(contents);
+  find_similarities(&separate_lists);
 
   free(contents);
   free_lists(&separate_lists);
@@ -140,4 +186,80 @@ void free_lists(lists *separate_lists)
   }
   free(separate_lists->list1);
   free(separate_lists->list2);
+}
+
+unsigned int hash_function(int key) { return key % HASH_TABLE_SIZE; }
+
+void hash_insert(HashTable *table, int key)
+{
+  unsigned int index = hash_function(key);
+
+  HashNode *current = table->buckets[index];
+  while(current != 0) {
+    if(current->key == key) {
+      current->count++;
+      return;
+    }
+    current = current->next;
+  }
+
+  // Key not found, create new node
+  HashNode *new_node    = malloc(sizeof(HashNode));
+  new_node->key         = key;
+  new_node->count       = 1;
+  new_node->next        = table->buckets[index];
+  table->buckets[index] = new_node;
+}
+
+void free_hash_table(HashTable *table)
+{
+  int       i;
+  HashNode *current;
+  HashNode *temp;
+
+  for(i = 0; i < table->size; i++) {
+    current = table->buckets[i];
+    while(current != 0) {
+      temp    = current;
+      current = current->next;
+      free(temp);
+    }
+  }
+  free(table->buckets);
+  free(table);
+}
+
+int hash_get(HashTable *table, int key)
+{
+  HashNode    *current;
+  unsigned int index = hash_function(key);
+
+  current = table->buckets[index];
+  while(current != 0) {
+    if(current->key == key) { return current->count; }
+    current = current->next;
+  }
+  return 0;
+}
+
+void find_similarities(lists *separate_lists)
+{
+  int           i;
+  int           c;
+  unsigned long sum = 0;
+
+  HashTable *table = malloc(sizeof(HashTable));
+  table->buckets   = calloc(HASH_TABLE_SIZE, sizeof(HashNode *));
+  table->size      = HASH_TABLE_SIZE;
+
+  for(i = 0; i < separate_lists->size; i++) {
+    hash_insert(table, *separate_lists->list2[i]);
+  }
+  for(i = 0; i < separate_lists->size; i++) {
+    c = hash_get(table, *separate_lists->list1[i]);
+    sum += c * *separate_lists->list1[i];
+  }
+  printf("%lu\n", sum);
+
+  free_hash_table(table);
 }
