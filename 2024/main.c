@@ -1,14 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void part1(void);
-void part2(void);
+void test1(char *path);
+
+void part1(char *path);
+void part2(char *path);
 
 int main(void)
 {
-  printf("part 1 output:\n");
-  part1();
-  printf("part 2 output:\n");
-  part2();
+  test1("./test.txt");
+  part1("./input.txt");
+  part2("./input.txt");
   return 0;
+}
+
+void test1(char *path)
+{
+  FILE *input;
+
+  input = fopen(path, "r");
+  if(!input) { exit(1); }
+}
+
+void part1(char *path)
+{
+  FILE *input;
+
+  input = fopen(path, "r");
+  if(!input) { exit(1); }
+}
+
+void part2(char *path)
+{
+  FILE *input;
+
+  input = fopen(path, "r");
+  if(!input) { exit(1); }
 }
