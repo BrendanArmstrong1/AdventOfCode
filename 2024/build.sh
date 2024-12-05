@@ -1,5 +1,5 @@
 CC="gcc"
-CFLAGS=""
+CFLAGS="-g -std=c99"
 
 input="main.c"
 output="main"

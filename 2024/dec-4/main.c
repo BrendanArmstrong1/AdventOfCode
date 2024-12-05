@@ -23,7 +23,7 @@ Xmas_map xmas_generate(FILE *input)
   fseek(input, 0, SEEK_SET);
 
   buffer = malloc((length + 1) * sizeof(*buffer));
-  if(!buffer) {
+  if (!buffer) {
     fprintf(stderr, "Memory allocation failed.\n");
     exit(EXIT_FAILURE);
   }
@@ -32,32 +32,31 @@ Xmas_map xmas_generate(FILE *input)
   buffer[length] = '\0';
 
   temp = buffer;
-  while(*temp) {
-    if(*temp == '\n') {
+  while (*temp) {
+    if (*temp == '\n')
       map.rows++;
-    } else if(map.rows == 0) {
+    else if (map.rows == 0)
       map.cols++;
-    }
     temp++;
   }
 
-  if(map.rows == 0 || map.cols == 0) {
+  if (map.rows == 0 || map.cols == 0) {
     fprintf(stderr, "Invalid file format.\n");
     free(buffer);
     exit(EXIT_FAILURE);
   }
 
   map.matrix = malloc(map.rows * sizeof(char *));
-  if(!map.matrix) {
+  if (!map.matrix) {
     fprintf(stderr, "Matrix memory allocation failed.\n");
     free(buffer);
     exit(EXIT_FAILURE);
   }
 
   temp = buffer;
-  for(i = 0; i < map.rows; i++) {
+  for (i = 0; i < map.rows; i++) {
     map.matrix[i] = malloc((map.cols) * sizeof(char));
-    if(!map.matrix[i]) {
+    if (!map.matrix[i]) {
       fprintf(stderr, "Row memory allocation failed.\n");
       free(buffer);
       exit(EXIT_FAILURE);
@@ -75,32 +74,39 @@ Xmas_map xmas_generate(FILE *input)
 void xmas_print(Xmas_map *map)
 {
   int i;
-  for(i = 0; i < map->rows; i++) { printf("%c", map->matrix[i][i]); }
+  for (i = 0; i < map->rows; i++)
+    printf("%c", map->matrix[i][i]);
   printf("\n");
   printf("\n");
 }
 
 void xmas_free(Xmas_map *map)
 {
-  for(int i = 0; i < map->rows; i++) { free(map->matrix[i]); }
+  for (int i = 0; i < map->rows; i++)
+    free(map->matrix[i]);
 }
 
 char xmas_get(Xmas_map *map, int i, int j)
 {
-  if(i < 0 || i > map->cols - 1) return 'G';
-  if(j < 0 || j > map->rows - 1) return 'G';
+  if (i < 0 || i > map->cols - 1)
+    return 'G';
+  if (j < 0 || j > map->rows - 1)
+    return 'G';
   return map->matrix[i][j];
 }
-unsigned long xmas_scan_direction(
-  Xmas_map *map, int i, int j, int ii, int jj, char *str, int str_idx)
+
+unsigned long
+xmas_scan_direction(Xmas_map *map, int i, int j, int ii, int jj, char *str, int str_idx)
 {
   int iii;
   int jjj;
   int delta_i;
   int delta_j;
 
-  if(str[str_idx] == 0) { return 1; }
-  if(xmas_get(map, ii, jj) == str[str_idx]) {
+  if (str[str_idx] == 0)
+    return 1;
+
+  if (xmas_get(map, ii, jj) == str[str_idx]) {
     str_idx++;
     delta_i = ii - i;
     delta_j = jj - j;
@@ -124,14 +130,15 @@ unsigned int xmas_find_xmas(Xmas_map *map)
 
   unsigned int val = 0;
 
-  for(i = 0; i < map->cols; i++) {
-    for(j = 0; j < map->rows; j++) {
+  for (i = 0; i < map->cols; i++) {
+    for (j = 0; j < map->rows; j++) {
       str_idx = 0;
-      if(xmas_get(map, i, j) == str[str_idx]) {
+      if (xmas_get(map, i, j) == str[str_idx]) {
         str_idx++;
-        for(ii = i - 1; ii <= i + 1; ii++) {
-          for(jj = j - 1; jj <= j + 1; jj++) {
-            if(ii == i && jj == j) continue;
+        for (ii = i - 1; ii <= i + 1; ii++) {
+          for (jj = j - 1; jj <= j + 1; jj++) {
+            if (ii == i && jj == j)
+              continue;
             val += xmas_scan_direction(map, i, j, ii, jj, str, str_idx);
           }
         }
@@ -152,24 +159,28 @@ unsigned int xmas_find_x_mas(Xmas_map *map)
 
   unsigned int val = 0;
 
-  for(i = 0; i < map->cols; i++) {
-    for(j = 0; j < map->rows; j++) {
-      if(xmas_get(map, i, j) == 'A') {
+  for (i = 0; i < map->cols; i++) {
+    for (j = 0; j < map->rows; j++) {
+      if (xmas_get(map, i, j) == 'A') {
         /*Found an A, I fuckin Love this solution*/
         x   = 0;
         mas = 0;
 
-        if(xmas_get(map, i - 1, j - 1) == 'S')
-          if(xmas_get(map, i + 1, j + 1) == 'M') x = 1;
+        if (xmas_get(map, i - 1, j - 1) == 'S')
+          if (xmas_get(map, i + 1, j + 1) == 'M')
+            x = 1;
 
-        if(xmas_get(map, i - 1, j - 1) == 'M')
-          if(xmas_get(map, i + 1, j + 1) == 'S') x = 1;
+        if (xmas_get(map, i - 1, j - 1) == 'M')
+          if (xmas_get(map, i + 1, j + 1) == 'S')
+            x = 1;
 
-        if(xmas_get(map, i + 1, j - 1) == 'S')
-          if(xmas_get(map, i - 1, j + 1) == 'M') mas = 1;
+        if (xmas_get(map, i + 1, j - 1) == 'S')
+          if (xmas_get(map, i - 1, j + 1) == 'M')
+            mas = 1;
 
-        if(xmas_get(map, i + 1, j - 1) == 'M')
-          if(xmas_get(map, i - 1, j + 1) == 'S') mas = 1;
+        if (xmas_get(map, i + 1, j - 1) == 'M')
+          if (xmas_get(map, i - 1, j + 1) == 'S')
+            mas = 1;
 
         val += x * mas;
         /*End of Found an A*/
@@ -185,7 +196,6 @@ void test1(char *path);
 void part1(char *path);
 void part2(char *path);
 
-
 void test1(char *path)
 {
   FILE    *input;
@@ -194,7 +204,8 @@ void test1(char *path)
   unsigned int number;
 
   input = fopen(path, "r");
-  if(!input) { exit(1); }
+  if (!input)
+    exit(1);
 
   map = xmas_generate(input);
 
@@ -215,7 +226,8 @@ void part1(char *path)
   unsigned int number;
 
   input = fopen(path, "r");
-  if(!input) { exit(1); }
+  if (!input)
+    exit(1);
 
   map = xmas_generate(input);
 
@@ -236,7 +248,8 @@ void part2(char *path)
   unsigned int number;
 
   input = fopen(path, "r");
-  if(!input) { exit(1); }
+  if (!input)
+    exit(1);
 
   map = xmas_generate(input);
 
