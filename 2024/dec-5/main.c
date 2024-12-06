@@ -88,28 +88,10 @@ int page_ordering_check(FILE *input, number_rules number_list[MAX_NUMBER], int s
               j = 0;
             }
           }
-
-        if (j > i)
-          if (number_list[item].after[other]) {
-            found = !swap;
-            if (swap) {
-              page_array[i] = other;
-              page_array[j] = item;
-
-              i = 0;
-              j = 0;
-            }
-          }
       }
     }
-    if (!found) {
-      for (i = 0; i < size; i++)
-        printf("%d,", page_array[i]);
-      printf("-> %d  ", page_array[size / 2]);
+    if (!found)
       return_value += page_array[size / 2];
-    }
-
-    printf("---\n");
   }
 
   return return_value;
@@ -199,7 +181,9 @@ void part2(char *path)
 int main(void)
 {
   /*test1("./test.txt");*/
-  /*part1("./input.txt");*/
+  printf("Part1 solution\n");
+  part1("./input.txt");
+  printf("Part2 solution\n");
   part2("./input.txt");
   return 0;
 }
