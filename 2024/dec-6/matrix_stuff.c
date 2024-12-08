@@ -107,8 +107,8 @@ void matrix_generate_mat(FILE *input, Matrix *mat)
       mat->rows++;
     else if (mat->rows == 0)
       mat->cols++;
+  temp = buffer;
 
-  temp        = buffer;
   mat->matrix = malloc(mat->rows * sizeof(*mat->matrix));
   if (!mat->matrix) {
     fprintf(stderr, "Memory allocation in matrix col failed.\n");
@@ -193,12 +193,12 @@ void matrix_finding_start(Matrix *mat, Location *loc1, Location *loc2, Matrix_ac
         return;
       }
       if (mat->matrix[j][i] == 'v') {
-        loc1->col   = i;
-        loc1->row   = j;
-        loc1->dir.y = 1;
-        loc2->col   = i;
-        loc2->row   = j;
-        loc2->dir.y = -1;
+        loc1->col    = i;
+        loc1->row    = j;
+        loc1->dir.y  = 1;
+        loc2->col    = i;
+        loc2->row    = j;
+        loc2->dir.y  = -1;
         loc1->startx = i;
         loc1->starty = j;
         loc2->startx = i;
@@ -208,12 +208,12 @@ void matrix_finding_start(Matrix *mat, Location *loc1, Location *loc2, Matrix_ac
         return;
       }
       if (mat->matrix[j][i] == '<') {
-        loc1->col   = i;
-        loc1->row   = j;
-        loc1->dir.x = -1;
-        loc2->col   = i;
-        loc2->row   = j;
-        loc2->dir.y = -1;
+        loc1->col    = i;
+        loc1->row    = j;
+        loc1->dir.x  = -1;
+        loc2->col    = i;
+        loc2->row    = j;
+        loc2->dir.y  = -1;
         loc1->startx = i;
         loc1->starty = j;
         loc2->startx = i;
@@ -223,12 +223,12 @@ void matrix_finding_start(Matrix *mat, Location *loc1, Location *loc2, Matrix_ac
         return;
       }
       if (mat->matrix[j][i] == '>') {
-        loc1->col   = i;
-        loc1->row   = j;
-        loc1->dir.x = 1;
-        loc2->col   = i;
-        loc2->row   = j;
-        loc2->dir.y = -1;
+        loc1->col    = i;
+        loc1->row    = j;
+        loc1->dir.x  = 1;
+        loc2->col    = i;
+        loc2->row    = j;
+        loc2->dir.y  = -1;
         loc1->startx = i;
         loc1->starty = j;
         loc2->startx = i;
