@@ -160,7 +160,7 @@ void part2(char *path)
 int main(void)
 {
   /*test1("./test.txt");*/
-  /*part1("./input.txt");*/
+  part1("./input.txt");
   part2("./input.txt");
   return 0;
 }
